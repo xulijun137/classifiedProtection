@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.AssessItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.AssessItem">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="system_id" property="systemId"/>
+        <result column="enterprise_id" property="enterpriseId"/>
+        <result column="progress_id" property="progressId"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, user_id, system_id, enterprise_id, progress_id, state
+    </sql>
+
+</mapper>

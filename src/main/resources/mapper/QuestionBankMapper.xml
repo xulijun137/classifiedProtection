@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.QuestionBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.QuestionBank">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="order" property="order" />
+        <result column="question_name" property="questionName" />
+        <result column="question_type" property="questionType" />
+        <result column="option_a" property="optionA" />
+        <result column="option_b" property="optionB" />
+        <result column="option_c" property="optionC" />
+        <result column="option_d" property="optionD" />
+        <result column="right_answer" property="rightAnswer" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, order, question_name, question_type, option_a, option_b, option_c, option_d, right_answer, description
+    </sql>
+
+</mapper>

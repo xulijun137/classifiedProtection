@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.ArchiveMaterialListMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.ArchiveMaterialList">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="task_id" property="taskId"/>
+        <result column="material_name" property="materialName"/>
+        <result column="material_type" property="materialType"/>
+        <result column="file" property="file"/>
+        <result column="material_from" property="materialFrom"/>
+        <result column="finish_state" property="finishState"/>
+        <result column="examine_state" property="examineState"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, task_id, material_name, material_type, file, material_from, finish_state, examine_state
+    </sql>
+
+    <select id="pagingVo" resultType="com.jwell.classifiedProtection.entry.vo.ArchiveMaterialListVo">
+        SELECT material.id, material.material_name, material.material_type, material.file_name,
+        material.material_from, material.finish_state, material.audit_state,
+        file.id fileId
+        FROM
+        (SELECT * FROM biz_archive_material_list
+        <where>
+            <if test="archiveMaterialList.materialName != null and archiveMaterialList.materialName != ''">
+                and biz_archive_material_list.material_name like "%"#{archiveMaterialList.materialName}"%"
+            </if>
+        </where>
+        ) material
+        LEFT JOIN
+        (SELECT * FROM biz_file_bank WHERE
+        biz_file_bank.table_name = "biz_archive_material_list") file
+        ON file.foreign_id = material.id
+
+    </select>
+</mapper>

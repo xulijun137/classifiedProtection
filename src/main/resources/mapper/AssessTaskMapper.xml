@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.AssessTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.AssessTask">
+        <id column="id" property="id"/>
+        <result column="task_name" property="taskName"/>
+        <result column="user_id" property="userId"/>
+        <result column="system_id" property="systemId"/>
+        <result column="organization_id" property="organizationId"/>
+        <result column="progress_id" property="progressId"/>
+        <result column="progress_state" property="progressState"/>
+        <result column="result" property="result"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, user_id, system_id, AssessTask_id, progress_id, result, creator_id
+    </sql>
+
+    <select id="selectAssessTaskVoPage" resultType="com.jwell.classifiedProtection.entry.vo.AssessTaskVo">
+        SELECT
+        task.id, task.task_name, task.system_id, task.organization_id,
+        task.progress_state, task.creator_id, task.create_time,
+        system.system_name, organization.organization_name, user.user_name creatorName
+        FROM
+        (SELECT * FROM biz_assess_task
+        <where>
+            <if test="assessTask.taskName != null and assessTask.taskName != ''">
+                and biz_assess_task.task_name like "%"#{assessTask.taskName}"%"
+            </if>
+        </where>
+        ) task
+        LEFT JOIN biz_system system on system.id = task.system_id
+        LEFT JOIN biz_organization organization on organization.id = task.organization_id
+        LEFT JOIN sys_user user on user.id = task.creator_id
+
+    </select>
+
+</mapper>

@@ -1,0 +1,128 @@
+#默认使用配置
+server:
+  port: 8089
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    max-connections: 20000
+
+ftp:
+   ip: 127.0.0.1
+   port: 21
+   username: admin
+   password: admin
+   downloadSleep: 100 #文件下载失败下次超时重试时间
+   downloadRetry: 10 #文件下载失败重试次数
+   uploadSleep: 100 #文件上传失败下次超时重试时间
+   uploadRettry: 10  #文件上传失败重试次数
+
+#  ssl:
+#    key-alias: root
+#    key-store: classpath:server.jks
+#    key-store-password: laibin
+#    key-password: laibin
+#    key-store-type: JKS
+
+#开发配置
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+  #连接池的配置信息
+  ## 初始化大小，最小，最大
+  druid:
+    initialSize: 20
+    minIdle: 5
+    maxAvtive: 50
+    ## 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.mergeSql=true
+
+  datasource:
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.8.4.201:3306/jw_protection_db?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 1qazZAQ!
+    filters: stat
+    maxActive: 20
+    initialSize: 5
+    maxWait: 60000
+    minIdle: 1b
+    maxOpenPreparedStatements: 20
+
+  activemq:
+    #ActiveMQ通讯地址
+    broker-url: tcp://localhost:61616
+    #用户名
+    user: admin
+    #密码
+    password: admin
+    #是否启用内存模式（就是不安装MQ，项目启动时同时启动一个MQ实例）
+    in-memory: false
+    packages:
+      #信任所有的包
+      trust-all: true
+    pool:
+      #是否替换默认的连接池，使用ActiveMQ的连接池需引入的依赖
+      enabled: false
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.jwell.classifiedProtection.entry
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 0
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    #序列接口实现类配置
+    #key-generator: com.baomidou.springboot.xxx
+    #逻辑删除配置（下面3个配置）
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+# 打印sql
+logging:
+  file:   # 日志文件,绝对路径或相对路径
+  path:   # 保存日志文件目录路径
+  #config: classpath:log4j2.yml # 日志配置文件,Spring Boot默认使用classpath路径下的日志配置文件,如:logback.xml
+  level:  # 日志级别
+    com.jwell.classifiedProtection.mapper: debug

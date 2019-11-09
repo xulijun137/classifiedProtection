@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.ArchiveMaterialAuditMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.ArchiveMaterialAudit">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="system_id" property="systemId"/>
+        <result column="enterprise_id" property="enterpriseId"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="audit_state" property="auditState"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, system_name, enterprise_id, creator_id, state
+    </sql>
+
+
+    <select id="selectVoPage"
+            resultType="com.jwell.classifiedProtection.entry.vo.ArchiveMaterialAuditVo">
+
+        SELECT material.id, material.system_id, material.enterprise_id,
+        material.creator_id, material.create_time, material.audit_state,
+        system.system_name,
+        enterprise.enterprise_name,
+        s_user.user_name creatorName FROM
+        (SELECT
+        *
+        FROM
+        biz_archive_material_audit
+        <where>
+            <if test="archiveMaterialAudit.systemId!=null">
+                and biz_archive_material_audit.system_id = #{archiveMaterialAudit.systemId}
+            </if>
+            <if test="archiveMaterialAudit.enterpriseId!=null">
+                and biz_archive_material_audit.enterprise_id = #{archiveMaterialAudit.enterpriseId}
+            </if>
+            <if test="archiveMaterialAudit.creatorId!=null">
+                and biz_archive_material_audit.creator_id = #{archiveMaterialAudit.creatorId}
+            </if>
+            <if test="archiveMaterialAudit.auditState!=null and archiveMaterialAudit.auditState !=''">
+                and biz_archive_material_audit.audit_state = #{archiveMaterialAudit.auditState}
+            </if>
+            <if test="archiveMaterialAudit.createTime!=null">
+                and biz_archive_material_audit.create_time = #{archiveMaterialAudit.createTime}
+            </if>
+        </where>
+        ) as material
+        LEFT JOIN biz_system system ON system.id = material.system_id
+        LEFT JOIN biz_enterprise enterprise ON enterprise.id = material.enterprise_id
+        LEFT JOIN sys_user s_user ON s_user.id = material.creator_id
+    </select>
+
+</mapper>

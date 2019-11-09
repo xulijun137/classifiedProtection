@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.EnterpriseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.Enterprise">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="parent_id" property="parentId"/>
+        <result column="enterprise_name" property="enterpriseName"/>
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, pid, name, remark
+    </sql>
+
+    <select id="selectPageVoPage" resultType="com.jwell.classifiedProtection.entry.vo.EnterpriseVo">
+        SELECT
+        enter_1.id, enter_1.parent_id, enter_1.enterprise_name, enter_1.create_time,
+        enter_2.enterprise_name as parent_name
+        FROM
+        (SELECT * FROM biz_enterprise
+        <where>
+            <if test="enterprise.enterpriseName != null and enterprise.enterpriseName != ''">
+                and biz_enterprise.enterprise_name =#{enterprise.enterpriseName}
+            </if>
+            <if test="enterprise.createTime != null">
+                and biz_enterprise.create_time = #{enterprise.createTime}
+            </if>
+        </where>
+        ) enter_1
+        LEFT JOIN biz_enterprise enter_2 on enter_1.parent_id = enter_2.id
+
+    </select>
+
+</mapper>

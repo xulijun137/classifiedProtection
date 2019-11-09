@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.AssetCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.AssetCategory">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="version" property="version"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, category_name, version, creator_id, description
+    </sql>
+
+</mapper>

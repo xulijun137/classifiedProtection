@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.RectificationAdviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.RectificationAdvice">
+        <id column="id" property="id" />
+        <result column="system_id" property="systemId"/>
+        <result column="enterprise_id" property="enterpriseId"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="progress_state" property="progressState"/>
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, asset_id, problem, result, advice
+    </sql>
+
+    <select id="selectRectificationAdviceVoPage"
+            resultType="com.jwell.classifiedProtection.entry.vo.RectificationAdviceVo">
+
+        SELECT advice.id, advice.system_id, advice.enterprise_id,
+        advice.creator_id, advice.create_time, advice.progress_state,
+        system.system_name,
+        enterprise.enterprise_name,
+        s_user.user_name creatorName FROM
+        (SELECT
+        *
+        FROM
+        biz_rectification_advice
+        <where>
+            <if test="rectificationAdvice.systemId!=null">
+                and biz_rectification_advice.system_id = #{rectificationAdvice.systemId}
+            </if>
+            <if test="rectificationAdvice.enterpriseId!=null">
+                and biz_rectification_advice.enterprise_id = #{rectificationAdvice.enterpriseId}
+            </if>
+            <if test="rectificationAdvice.creatorId!=null">
+                and biz_rectification_advice.creator_id = #{rectificationAdvice.creatorId}
+            </if>
+            <if test="rectificationAdvice.progressState!=null and rectificationAdvice.progressState !=''">
+                and biz_rectification_advice.progress_state = #{rectificationAdvice.progressState}
+            </if>
+            <if test="rectificationAdvice.createTime!=null">
+                and biz_rectification_advice.create_time = #{rectificationAdvice.createTime}
+            </if>
+        </where>
+        ) as advice
+        LEFT JOIN biz_system system ON system.id = advice.system_id
+        LEFT JOIN biz_enterprise enterprise ON enterprise.id = advice.enterprise_id
+        LEFT JOIN sys_user s_user ON s_user.id = advice.creator_id
+    </select>
+
+</mapper>

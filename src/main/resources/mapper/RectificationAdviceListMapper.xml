@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.RectificationAdviceListMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.RectificationAdviceList">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="problem" property="problem"/>
+        <result column="result" property="result"/>
+        <result column="advice" property="advice"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, asset_id, problem, result, advice
+    </sql>
+
+    <select id="selectRectificationAdviceListVoPage"
+            resultType="com.jwell.classifiedProtection.entry.vo.RectificationAdviceListVo">
+
+        SELECT advice_list.id, advice_list.category,
+        advice_list.protection_type, advice_list.asset_id,
+        advice_list.problem, advice_list.risk, advice_list.measure,
+        asset.asset_name
+        FROM
+        (SELECT
+        *
+        FROM
+        biz_rectification_advice_list
+        <where>
+            <if test="rectificationAdviceList.adviceId!=null">
+                and biz_rectification_advice_list.advice_id = #{rectificationAdviceList.adviceId}
+            </if>
+            <if test="rectificationAdviceList.category!=null">
+                and biz_rectification_advice_list.category = #{rectificationAdviceList.category}
+            </if>
+            <if test="rectificationAdviceList.categoryId!=null">
+                and biz_rectification_advice_list.category_id = #{rectificationAdviceList.categoryId}
+            </if>
+        </where>
+        ) as advice_list
+        LEFT JOIN biz_asset asset ON asset.id = advice_list.asset_id
+    </select>
+
+</mapper>

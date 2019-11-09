@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.SystemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <!--    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.System">-->
+    <!--        <id column="id" property="id" />-->
+    <!--    <result column="create_time" property="createTime" />-->
+    <!--        <result column="enterprise_id" property="enterpriseId" />-->
+    <!--        <result column="system_name" property="systemName" />-->
+    <!--        <result column="sysrem_number" property="sysremNumber" />-->
+    <!--        <result column="business_type" property="businessType" />-->
+    <!--        <result column="business_desc" property="businessDesc" />-->
+    <!--        <result column="service_range" property="serviceRange" />-->
+    <!--        <result column="service_object" property="serviceObject" />-->
+    <!--        <result column="system_conncting" property="systemConncting" />-->
+    <!--        <result column="product_security" property="productSecurity" />-->
+    <!--        <result column="product_network" property="productNetwork" />-->
+    <!--        <result column="product_os" property="productOs" />-->
+    <!--        <result column="product_db" property="productDb" />-->
+    <!--        <result column="product_server" property="productServer" />-->
+    <!--        <result column="product_other" property="productOther" />-->
+    <!--        <result column="service_grade" property="serviceGrade" />-->
+    <!--        <result column="service_risk" property="serviceRisk" />-->
+    <!--        <result column="service_disaster" property="serviceDisaster" />-->
+    <!--        <result column="service_emergency" property="serviceEmergency" />-->
+    <!--        <result column="service_integration" property="serviceIntegration" />-->
+    <!--        <result column="service_consultation" property="serviceConsultation" />-->
+    <!--        <result column="service_training" property="serviceTraining" />-->
+    <!--        <result column="service_other" property="serviceOther" />-->
+    <!--        <result column="system_bearer" property="systemBearer" />-->
+    <!--        <result column="begin_running_time" property="beginRunningTime" />-->
+    <!--        <result column="is_subsystem" property="isSubsystem" />-->
+    <!--        <result column="super_system" property="superSystem" />-->
+    <!--        <result column="super_system_department" property="superSystemDepartment" />-->
+    <!--    </resultMap>-->
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, enterprise_id, system_name, sysrem_number, business_type, business_desc, service_range, service_object, system_conncting, product_security, product_network, product_os, product_db, product_server, product_other, service_grade, service_risk, service_disaster, service_emergency, service_integration, service_consultation, service_training, service_other, system_bearer, begin_running_time, is_subsystem, super_system, super_system_department
+    </sql>
+
+</mapper>

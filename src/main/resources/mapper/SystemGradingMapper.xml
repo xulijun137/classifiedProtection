@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.SystemGradingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.SystemGrading">
+        <result column="create_time" property="createTime"/>
+        <result column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="business_information" property="businessInformation"/>
+        <result column="system_service" property="systemService"/>
+        <result column="proteciton_standard" property="protecitonStandard"/>
+        <result column="security_type" property="securityType"/>
+        <result column="grading_time" property="gradingTime"/>
+        <result column="expert_state" property="expertState"/>
+        <result column="expert_file" property="expertFile"/>
+        <result column="competent_department" property="competentDepartment"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="department_state" property="departmentState"/>
+        <result column="department_file" property="departmentFile"/>
+        <result column="grading_report" property="gradingReport"/>
+        <result column="grading_file" property="gradingFile"/>
+        <result column="filling_person" property="fillingPerson"/>
+        <result column="filling_time" property="fillingTime"/>
+        <result column="creator_id" property="creatorId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, task_id, business_information, system_service, proteciton_standard, security_type, grading_time, expert_state, expert_file, competent_department, department_name, department_state, department_file, grading_report, grading_file, filling_person, filling_time, creator_id
+    </sql>
+
+</mapper>

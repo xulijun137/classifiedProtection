@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jwell.classifiedProtection.mapper.OrganizationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jwell.classifiedProtection.entry.Organization">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="pid" property="pid"/>
+        <result column="user_id" property="userId"/>
+        <result column="organization_name" property="organizationName"/>
+        <result column="business_license" property="businessLicense"
+                jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="address" property="address"/>
+        <result column="postal_code" property="postalCode"/>
+        <result column="admin_code" property="adminCode"/>
+        <result column="charger_name" property="chargerName"/>
+        <result column="charger_position" property="chargerPosition"/>
+        <result column="charger_phone" property="chargerPhone"/>
+        <result column="charger_email" property="chargerEmail"/>
+        <result column="charger_license" property="chargerLicense"
+                jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="charger_department" property="chargerDepartment"/>
+        <result column="contacts_name" property="contactsName"/>
+        <result column="contacts_position" property="contactsPosition"/>
+        <result column="contacts_phone" property="contactsPhone"/>
+        <result column="contacts_email" property="contactsEmail"/>
+        <result column="officer_license" property="officerLicense"
+                jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="affiliation" property="affiliation"/>
+        <result column="organization_type" property="organizationType"/>
+        <result column="industry_type" property="industryType"/>
+        <result column="info_sys_nums" property="infoSysNums"/>
+        <result column="second_sys_nums" property="secondSysNums"/>
+        <result column="third_sys_nums" property="thirdSysNums"/>
+        <result column="fouth_sys_nums" property="fouthSysNums"/>
+        <result column="fifth_sys_nums" property="fifthSysNums"/>
+        <result column="sixth_sys_nums" property="sixthSysNums"/>
+        <result column="creator_id" property="creatorId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        create_time,
+        id, pid, user_id, name, business_license, address, postal_code, admin_code, charger_name, charger_position, charger_phone, charger_email, charger_license, charger_department, contacts_name, contacts_position, contacts_phone, contacts_email, officer_license, affiliation, organization_type, industry_type, info_sys_nums, second_sys_nums, third_sys_nums, fouth_sys_nums, fifth_sys_nums, sixth_sys_nums
+    </sql>
+
+    <select id="selectOrganizationVoPage" resultType="com.jwell.classifiedProtection.entry.vo.OrganizationPagingVo">
+        SELECT organization.id, organization.organization_name,
+        organization.create_time, organization.creator_id,
+        user.user_name as creatorName FROM
+        (SELECT * FROM biz_organization
+        <where>
+            <if test="organization.organizationName != null and organization.organizationName != ''">
+                and biz_organization.organization_name like "%"#{organization.organizationName}"%"
+            </if>
+        </where>
+        ) organization
+        LEFT JOIN sys_user user on organization.creator_id = user.id
+
+    </select>
+
+</mapper>
